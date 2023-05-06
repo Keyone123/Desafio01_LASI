@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -11,6 +12,7 @@ public class Main {
         System.out.println("3.Editar uma TODO");
         System.out.println("4.Marcar uma TODO como concluída");
         System.out.println("5.Excluir uma TODO");
+        System.out.println("6.Detalhes de uma TODO");
         System.out.println("0.Sair do programa");
         System.out.println("\n--------------------------------------------------------------------------");
         op = input.nextInt();
@@ -24,18 +26,32 @@ public class Main {
             int op = menu();
             switch (op){
                 case 1 ->{
-                    String nome;
+                    String nome, categoria, descricao;
                     System.out.println("\nPor favor, digite o nome da sua TO-DO: ");
                     nome = input.nextLine();
-                    lista.adicionar(nome);
+                    System.out.println("\nPor favor, digite a categoria que está inserida a atividade: ");
+                    System.out.println("Casa");
+                    System.out.println("Trabalho");
+                    System.out.println("Escola");
+                    categoria = input.nextLine();
+                    if(Objects.equals(categoria, "Casa") || Objects.equals(categoria, "Trabalho") || Objects.equals(categoria, "Escola")){
+                        System.out.println("\nDigite uma descrição para sua TODO: ");
+                        descricao = input.nextLine();
+                        lista.adicionar(nome, categoria, descricao);
+                    }
+                    else{
+                        System.out.println("\nA categoria escrita está incorreta");
+                        return;
+                    }
+
                 }
                 case 2 -> lista.imprimir();
                 case 3 ->{
-                    String pesquisa, novo_nome;
-                    System.out.println("\nDigite a seguir, o nome que será substituído e o novo nome da TODO: ");
+                    String pesquisa;
+                    System.out.println("\nDigite o nome da TODO que deseja pesquisar: ");
                     pesquisa = input.nextLine();
-                    novo_nome = input.nextLine();
-                    lista.editar(pesquisa, novo_nome);
+                    lista.editar(pesquisa);
+
                 }
                 case 4 ->{
                     String pesquisa;
@@ -48,6 +64,12 @@ public class Main {
                     System.out.println("\nDigite a seguir, o nome da tarefa a ser pesquisada: ");
                     pesquisa = input.nextLine();
                     lista.excluir(pesquisa);
+                }
+                case 6 ->{
+                    String pesquisa;
+                    System.out.println("\nDigite a seguir, o nome da tarefa a ser pesquisada: ");
+                    pesquisa = input.nextLine();
+                    lista.detalhe(pesquisa);
                 }
                 case 0 -> igual = false;
             }

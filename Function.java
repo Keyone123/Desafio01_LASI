@@ -1,11 +1,12 @@
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Function {
     TODO inicio;
     TODO ultimo;
     static int tamanho;
-    public void adicionar(String nome){
-        TODO celula = new TODO(nome);
+    public void adicionar(String nome, String categoria, String descricao){
+        TODO celula = new TODO(nome, categoria, descricao);
         if(tamanho == 0)
             this.inicio = celula;
         else
@@ -27,16 +28,34 @@ public class Function {
             atual = atual.getProx();
         }
     }
-    public void editar(String pesquisa, String nome_novo){
-        TODO atual = this.inicio;
-        while(atual != null){
-            if(Objects.equals(atual.nome, pesquisa)){
-                atual.setNome(nome_novo);
-                System.out.println("\nNome editado com sucesso");
-                break;
-            }
-            atual = atual.prox;
-        }
+    public void editar(String pesquisa){
+       Scanner input = new Scanner(System.in);
+       TODO atual = this.inicio;
+       int escolha;
+       String novo;
+       while(atual != null){
+           if(Objects.equals(atual.nome, pesquisa)){
+               System.out.println("\nTODO encontrada!!!");
+               System.out.println("Escolha qual das alternativas deseja alterar dentro da TODO: ");
+               System.out.println("1.Título da TODO");
+               System.out.println("2.Categoria da TODO");
+               System.out.println("3.Descrição da TODO");
+               escolha = input.nextInt();
+               System.out.print("Digite para substituir: ");
+               novo = input.nextLine();
+               if(escolha == 1)
+                   atual.setNome(novo);
+               else if(escolha == 2)
+                   atual.setCategoria(novo);
+               else if(escolha == 3)
+                   atual.setDescricao(novo);
+               else
+                   System.out.println("\nO número que voce digitou não está dentro do escopo de escolhas");
+               return;
+           }
+           atual = atual.prox;
+       }
+       System.out.println("\nTODO não pode ser encontrada");
     }
     public void concluir(String pesquisa){
         TODO atual = this.inicio;
@@ -67,5 +86,18 @@ public class Function {
                 this.inicio = atual.prox;
         }
         atual.prox = null;
+    }
+    public void detalhe(String pesquisa){
+        TODO atual = this.inicio;
+        while(atual != null){
+            if(Objects.equals(atual.nome, pesquisa)){
+                System.out.println("\nNome encontrado com sucesso!!!!");
+                System.out.println("Detalhes da sua TODO:");
+                System.out.println("Nome: " + atual.nome);
+                System.out.println("Categoria: " + atual.categoria);
+                System.out.println("Descrição: " + atual.descricao);
+            }
+            atual = atual.prox;
+        }
     }
 }
